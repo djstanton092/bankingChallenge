@@ -11,7 +11,7 @@ public class Branch {
         customers = new ArrayList<Customer> ();
     }
 
-    public boolean addCustomer(String name, double initialTransaction) {
+    public boolean newCustomer(String name, double initialTransaction) {
         if (findCustomer(name) == null) {
             this.customers.add(new Customer(name, initialTransaction));
             return true;
@@ -36,7 +36,7 @@ public class Branch {
         return null;
     }
 
-    public boolean addTransaction(String name, double transaction) {
+    public boolean addCustomerTransaction(String name, double transaction) {
         Customer aCustomer = findCustomer(name);
         if (aCustomer != null) {
             aCustomer.addTransaction(transaction);

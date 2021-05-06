@@ -21,7 +21,7 @@ public class Bank {
         return false;
     }
 
-    public Branch findBranch(String branchName) {
+    private Branch findBranch(String branchName) {
         for (Branch aBranch: branches) {
             if (aBranch.getName().equalsIgnoreCase(branchName)) {
                 return aBranch;
@@ -33,7 +33,7 @@ public class Bank {
     public boolean addCustomer(String branchName, String customerName, double initialTransaction) {
         Branch aBranch = findBranch(branchName);
         if (aBranch != null) {
-            return aBranch.addCustomer(customerName, initialTransaction);
+            return aBranch.newCustomer(customerName, initialTransaction);
         }
         return false;
     }
@@ -42,7 +42,8 @@ public class Bank {
         Branch aBranch = findBranch(branch);
 
         if (aBranch != null) {
-            aBranch.addTransaction(customer, transactionAmount);
+            return aBranch.addCustomerTransaction(customer, transactionAmount);
+
         }
 
         return false;
@@ -54,17 +55,17 @@ public class Bank {
             System.out.println("Customer details for branch " + branch.getName());
             ArrayList<Customer> branchCustomers = branch.getCustomers();
             for(Customer branchCustomer: branchCustomers) {
-                System.out.println("Customer " + branchCustomer.getName() + "[" +
+                System.out.println("Customer: " + branchCustomer.getName() + "[" +
                         (branchCustomers.indexOf(branchCustomer) + 1) + "]");
 
                 if (showTransactions) {
                     ArrayList<Double> customerTransactions = branchCustomer.getTransactions();
-                    System.out.println("Transactions:");
+                    System.out.println("Transactions");
                     for (Double customerTransaction: customerTransactions) {
                         System.out.println("[" +
-                                            (customerTransactions.indexOf(customerTransaction) + 1) +
-                                            "]" +
-                                            customerTransaction);
+                                (customerTransactions.indexOf(customerTransaction) + 1) +
+                                "]  Amount " +
+                                customerTransaction);
                     }
                 }
             }
@@ -72,25 +73,4 @@ public class Bank {
         }
         return false;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
